@@ -15,6 +15,15 @@
 calcular_estatisticas <- function(continentes, anos = 2000:2022) {
   if (missing(continentes)) usethis::ui_stop("PRECISO DE UM CONTINENTE")
 
+
+  if(!continentes %in% unique(dados::dados_gapminder$continente)){
+    usethis::ui_stop(
+      glue::glue("Indique um continente dentre os seguintes:
+      {paste0(unique(dados::dados_gapminder$continente), collapse = ', ')}")
+    )
+  }
+
+
   dados::dados_gapminder |>
    # dplyr::filter(.data[["continente"]] %in% continentes, ano %in% anos) |>
     dplyr::filter(continente %in% continentes, ano %in% anos) |>
